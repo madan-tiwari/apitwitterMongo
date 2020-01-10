@@ -21,16 +21,13 @@ router.post("/add",(req,res,next) => {
 
 
 router.get("/tweetList", (req,res,next) => {
-    Tweet.find({}, function(err, users) {
-        var userMap = {};
-    
-        users.forEach(function(user) {
-          userMap[user._id] = user;
-        });
-    
-        res.send(userMap);  
-      });
-    
+    Tweet.find()
+    .then(tweet => {
+res.status(200).send(tweet);
+        
+    })
+    .catch(err => { res.status(500).json({ status: "Failed", err }) })
 })
+
 
 module.exports = router;
